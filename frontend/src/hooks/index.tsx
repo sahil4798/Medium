@@ -56,7 +56,7 @@ export const useBlog = ({ id }: { id: string }) => {
       .catch((err) => {
         alert(err);
       });
-  }, []);
+  }, [id]);
 
   return { loading, blog };
 };

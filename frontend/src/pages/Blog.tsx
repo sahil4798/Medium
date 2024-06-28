@@ -7,27 +7,30 @@ import { useParams } from "react-router-dom";
 const Blog = () => {
   const { id } = useParams();
   const { blog, loading } = useBlog({ id: id || "" });
+  console.log(blog);
 
-  // if (loading) {
-  return (
-    <div>
-      <AppBar />
-      <div className=" flex  justify-center   h-screen">
-        <div className=" flex flex-col justify-center">
-          <Spinner />
+  if (loading) {
+    return (
+      <div>
+        <AppBar />
+        <div className=" flex  justify-center   h-screen">
+          <div className=" flex flex-col justify-center">
+            <Spinner />
+          </div>
         </div>
       </div>
-    </div>
-  );
-  // }
+    );
+  }
+  const defaultBlog = {
+    id: 0,
+    title: "Untitled",
+    content: "No content available",
+    author: { name: "Unknown author" },
+  };
+
   return (
     <div>
-      <SingleBlog
-        title={blog?.title}
-        content={blog?.content}
-        author={blog?.author.name}
-        date={"August 24, 2023"}
-      />
+      <SingleBlog blog={blog || defaultBlog} date={"August 24, 2023"} />
     </div>
   );
 };
