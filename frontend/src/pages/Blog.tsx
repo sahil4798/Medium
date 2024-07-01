@@ -1,36 +1,34 @@
-import { AppBar } from "../components/AppBar";
-import { SingleBlog } from "../components/SingleBlog";
-import { Spinner } from "../components/Spinner";
-import { useBlog } from "../hooks";
+import { useRecoilValueLoadable } from "recoil";
+import { SingleBlog } from "../components/Blogs/SingleBlog";
 import { useParams } from "react-router-dom";
+import { blogAtomFamily } from "../recoil/atoms/Blog";
+import { AppBar } from "../components/AppBar";
+import { SingleBlogSkeeleton } from "../components/Blogs/SiglebolgSkeleton";
 
 const Blog = () => {
   const { id } = useParams();
-  const { blog, loading } = useBlog({ id: id || "" });
-  console.log(blog);
-
-  if (loading) {
-    return (
-      <div>
-        <AppBar />
-        <div className=" flex  justify-center   h-screen">
-          <div className=" flex flex-col justify-center">
-            <Spinner />
-          </div>
-        </div>
-      </div>
-    );
-  }
   const defaultBlog = {
     id: 0,
     title: "Untitled",
     content: "No content available",
     author: { name: "Unknown author" },
+    createdAt: new Date(),
   };
+
+  const blog = useRecoilValueLoadable(blogAtomFamily(id || ""));
+
+  if (blog.state === "loading") {
+    return (
+      <div>
+        <AppBar />
+        <SingleBlogSkeeleton />
+      </div>
+    );
+  }
 
   return (
     <div>
-      <SingleBlog blog={blog || defaultBlog} date={"August 24, 2023"} />
+      <SingleBlog blog={blog.contents || defaultBlog} />
     </div>
   );
 };

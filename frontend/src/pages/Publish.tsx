@@ -5,7 +5,7 @@ import { BACKEND_URL } from "../config";
 import { CreateBlogInput } from "@aahil07/medium-common";
 import { useNavigate } from "react-router-dom";
 
-export const Publish = () => {
+const Publish = () => {
   const [createBlogInput, setCreateBlogInput] = useState<CreateBlogInput>({
     title: "",
     content: "",
@@ -38,10 +38,10 @@ export const Publish = () => {
   }
 
   return (
-    <div>
+    <div className=" h-screen">
       <AppBar />
-      <div className="flex justify-center pt-8">
-        <div className="w-full  max-w-screen-lg ">
+      <div className="flex justify-center mt-20 ">
+        <div className="w-full  max-w-screen-lg  px-10 ">
           <div>
             <input
               onChange={(e) => {
@@ -81,6 +81,8 @@ export const Publish = () => {
     </div>
   );
 };
+
+export default Publish;
 
 interface type1 {
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;

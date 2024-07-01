@@ -20,13 +20,13 @@ userRoute.post("/signup", async (c) => {
 
   if (!success) {
     c.status(403);
-    return c.json({ message: "Invalid or IncorrecT data" });
+    return c.json({ message: "Invalid or Incorrect data" });
   }
 
   try {
     const user = await prisma.user.create({
       data: {
-        email: userData.email,
+        username: userData.username,
         password: userData.password,
         name: userData.name,
       },
@@ -48,18 +48,17 @@ userRoute.post("/signin", async (c) => {
 
   if (!success) {
     c.status(403);
-    return c.json({ message: "Invalid or Incorrect dataaaaaa" });
+    return c.json({ message: "Invalid or Incorrect data" });
   }
 
   try {
     const user = await prisma.user.findFirst({
-      where: { email: body.email, password: body.passsword },
+      where: { username: body.username, password: body.password },
     });
-    console.log(user);
 
     if (!user) {
       c.status(403);
-      return c.json({ error: "user not found" });
+      return c.json({ message: "Incorrect creds" });
     }
 
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);

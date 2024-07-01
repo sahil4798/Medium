@@ -1,11 +1,15 @@
-import Auth from "../components/Auth";
-import Quote from "../components/Quote";
+import Quote from "../components/AuthComponent/Quote";
+import { Signin as SigninComponent } from "../components/AuthComponent/Signin";
 
 const Signin = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
-      <Auth type={"Sign In"}></Auth>
-      <Quote></Quote>
+      <div>
+        <SigninComponent />
+      </div>
+      <div className="hidden md:block">
+        <Quote />
+      </div>
     </div>
   );
 };

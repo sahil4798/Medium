@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 
 interface Blog {
+  createdAt: Date;
   content: string;
   title: string;
   id: number;
@@ -17,6 +18,9 @@ export function useBlogs() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      return alert("No token Provided");
+    }
     axios
       .get(`${BACKEND_URL}api/v1/blog/bulk`, {
         headers: {

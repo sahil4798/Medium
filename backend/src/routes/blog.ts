@@ -109,6 +109,7 @@ blogRoute.get("/bulk", async (c) => {
         id: true,
         title: true,
         content: true,
+        createdAt: true,
         author: {
           select: {
             name: true,
@@ -133,6 +134,7 @@ blogRoute.get("/:id", async (c) => {
     const blog = await prisma.post.findFirst({
       where: { id: Number(id) },
       select: {
+        createdAt: true,
         id: true,
         content: true,
         title: true,

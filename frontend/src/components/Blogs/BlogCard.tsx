@@ -34,17 +34,23 @@ export const BlogCard = ({ authorName, title, post, date }: BlogCardProps) => {
 export function Avtar({
   name,
   size,
+  text,
 }: {
   name: string;
   size?: "large" | "small";
+  text?: string;
 }) {
   return (
     <div
       className={`relative inline-flex items-center justify-center ${
-        size === "small" ? "w-6 h-6" : "w-8 h-8"
-      } h-8 overflow-hidden bg-gray-600 rounded-full `}
+        size === "small" ? "w-6 h-6" : "w-10 h-10"
+      } overflow-hidden bg-gray-600 rounded-full `}
     >
-      <span className="font-medium text-gray-100 dark:text-gray-300">
+      <span
+        className={`font-sm text-gray-100 dark:text-gray-300  
+  text-${text}
+        `}
+      >
         {name[0]}
       </span>
     </div>

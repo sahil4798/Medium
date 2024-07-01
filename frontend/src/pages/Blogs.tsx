@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { AppBar } from "../components/AppBar";
-import { BlogCard } from "../components/BlogCard";
+import { BlogCard } from "../components/Blogs/BlogCard";
 import { useBlogs } from "../hooks";
-import { BlogSkeleton } from "../components/BlogSkeleton";
+import { BlogSkeleton } from "../components/Blogs/BlogSkeleton";
 
 const Blogs = () => {
   const { blogs, loading } = useBlogs();
@@ -25,19 +25,22 @@ const Blogs = () => {
     );
   }
 
+  const dateTimeFormatter = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long",
+  });
+
   return (
     <div>
       <AppBar />
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-14">
         <div className=" max-w-xl">
           {blogs.map((b) => {
             return (
               <Link to={`/blog/${b.id}`} key={b.id}>
                 <BlogCard
                   key={b.id}
-                  authorName={"Jack"}
-                  // authorName={b.author.name.toUpperCase()}
-                  date={"3 Dec, 2023"}
+                  authorName={b.author.name}
+                  date={dateTimeFormatter.format(new Date(b.createdAt))}
                   title={b.title}
                   post={b.content}
                 />
